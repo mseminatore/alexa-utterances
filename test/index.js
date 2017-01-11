@@ -1,7 +1,6 @@
 var utterances = require('../');
 var test       = require('tap').test;
 
-
 test('basic usage', function (t) {
   var dictionary = {};
   var slots = {};
@@ -127,14 +126,18 @@ test('raw curly braces for custom slot types', function (t) {
 test('double expansion', function (t) {
   var dictionary = {};
   var slots = {"number": "NUMBER"};
-  var template = "{to|} set temperature to {64-65|number}";
+  var template = "{to |}set temperature to {64-67|number}";
 
-  var result = utterances(template, slots, dictionary);
+  var result = utterances(template, slots, dictionary, true);
   t.deepEqual(result, [
     "to set temperature to {sixty four|number}",
     "set temperature to {sixty four|number}",
     "to set temperature to {sixty five|number}",
     "set temperature to {sixty five|number}",
+    "to set temperature to {sixty six|number}",
+    "set temperature to {sixty six|number}",
+    "to set temperature to {sixty seven|number}",
+    "set temperature to {sixty seven|number}",
   ]);
   t.end();
 });
